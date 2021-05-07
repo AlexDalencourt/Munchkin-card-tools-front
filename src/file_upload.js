@@ -2,24 +2,6 @@ import axios from 'axios';
 import React,{Component} from 'react';
 import "./file_upload.css"
 
-class FileInformations extends Component {
-    state = {
-        numberOfColumn: null,
-        numberOfLine: null,
-    }
-
-    render(){
-        return (
-            <form>
-                Number of column
-                <input type="number" onInput={this.props.updateGrid(this.state.numberOfColumn, this.state.numberOfLine)}/>
-                Number of lines
-                <input type="number" onInput={this.props.updateGrid(this.state.numberOfColumn, this.state.numberOfLine)}/>
-            </form>
-        )
-    };
-}
-
 class FileUpload extends Component {
     constructor(props) {
         super(props);
