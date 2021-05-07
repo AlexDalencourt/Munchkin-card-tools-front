@@ -10,13 +10,18 @@ class FileUpload extends Component {
             selectedFileUrl: null,
             numberOfColumn: null,
             numberOfLine: null,
+            type: null,
         };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     onFileChange = event => {
         this.setState({
             selectedFile: event.target.files[0],
             selectedFileUrl: URL.createObjectURL(event.target.files[0]),
+            numberOfColumn: null,
+            numberOfLine: null,
+            type: null,
         });
     };
 
@@ -29,14 +34,11 @@ class FileUpload extends Component {
             selectedFile.name
         );
 
-        console.log(selectedFile);
-        console.log(this.state.numberOfColumn);
-        console.log(this.state.numberOfLine);
-
         const numberOfColumns = this.state.numberOfColumn;
         const numberOfLines = this.state.numberOfLine;
+        const boardType = this.state.type;
 
-        axios.post("http://localhost:8080/asset/board", formData, {params:{numberOfColumns,numberOfLines}});
+        axios.post("http://localhost:8080/asset/board", formData, {params:{numberOfColumns,numberOfLines,boardType}});
     };
 
     onUpdateGrid = (newNumberOfColumn, newNumberOfLine) => {
@@ -46,15 +48,27 @@ class FileUpload extends Component {
         })
     }
 
+    handleChange(event){
+        this.setState({
+            [event.target.name] : event.target.value
+        })
+    }
+
     fileData = () => {
         if (this.state.selectedFile) {
             return (
                 <div>
                     <img src={this.state.selectedFileUrl} alt="filePreview" className="filePreview" />
                     Number of column
-                    <input type="number" onInput={(e) => this.setState({numberOfColumn: e.target.value})}/>
+                    <input type="number" value={this.state.numberOfColumn} onChange={this.handleChange} name={"numberOfColumn"}/>
                     Number of lines
-                    <input type="number" onInput={(e) => this.setState({numberOfLine: e.target.value})}/>
+                    <input type="number" value={this.state.numberOfLine} onChange={this.handleChange} name="numberOfLine"/>
+                    Type
+                    <select value={this.state.type} onChange={this.handleChange} name="type">
+                        <option value="DUNGEON">DUNGEON</option>
+                        <option value="TREASURE">TREASURE</option>
+                        <option value="BACKGROUND">BACKGROUND</option>
+                    </select>
                 </div>
             );
         } else {
