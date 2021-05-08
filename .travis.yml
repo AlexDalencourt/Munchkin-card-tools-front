@@ -12,3 +12,7 @@ branches:
   only:
     - master
     - develop
+    
+os: linux
+arch:
+  - arm64
