@@ -2,7 +2,7 @@ import axios from 'axios';
 import React,{Component} from 'react';
 import "./styles/file_upload.css"
 
-class CardType extends Component {
+export class CardType extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,13 +12,15 @@ class CardType extends Component {
     }
 
     initCardTypes() {
-        axios.get("http://localhost:8080/cards/types").then(response => {this.setState({cardTypes: response.data})});
+        axios.get("http://localhost:8080/cards/types")
+            .then(res => console.log(res)).catch(err => console.error(err));
+            // .then(response => {this.setState({cardTypes: response.data})}).catch(err => console.error(err));
     }
 
     render() {
         return (
-            <select name="type" onChange={this.props.handleChange} >
-                <option disabled={true} selected={true} />
+            <select name="type" onChange={this.props.handleChange} defaultValue={""} >
+                <option disabled={true} />
                 {this.state.cardTypes.map(
                     type => <option value={type}>{type}</option>
                 )}
@@ -63,7 +65,11 @@ class FileUpload extends Component {
         const numberOfLines = this.state.numberOfLine;
         const boardType = this.state.type;
 
-        axios.post("http://localhost:8080/asset/board", formData, {params:{numberOfColumns,numberOfLines,boardType}});
+        axios.post(
+            "http://localhost:8080/asset/board",
+            formData,
+            {params:{numberOfColumns,numberOfLines,boardType}}
+        );
     };
 
     handleChange(event){
