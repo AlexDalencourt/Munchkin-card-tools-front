@@ -15,4 +15,5 @@ branches:
     
 os: linux
 arch:
-  - arm64
+  - ppc64le
+dist: focal
