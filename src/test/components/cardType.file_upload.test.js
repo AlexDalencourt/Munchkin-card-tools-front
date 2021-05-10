@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import {FileUpload, CardType} from "../../components/file_upload";
+import {CardType} from "../../components/file_upload";
 import axios from 'axios';
 import { when } from 'jest-when';
 
 jest.mock('axios');
+const cardTypes = ["TEST1", "TEST2", "TEST3"];
 
 beforeEach(() => {
-    when(axios.get).calledWith("http://localhost:8080/cards/types").mockReturnValue(Promise.resolve({data: '{"TEST"}'}));
+    when(axios.get)
+        .calledWith("http://localhost:8080/cards/types")
+            .mockReturnValue(Promise.resolve({data: cardTypes}));
 
 });
 
@@ -39,21 +42,16 @@ test('CardType must call server to load all types', () => {
     expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/cards/types");
 });
 
-// test('CardType should load types from server', () => {
-//     // given
-//
-//     // when
-//     render(<CardType />)
-//
-//     // then
-//
-// });
+test('CardType should display all types get from server', async () => {
+    await render(<CardType />);
 
-// test('Should set state on value form onChange', () => {
-//     render(<FileUpload/>);
-//     const linkElement = screen.getByText(/learn react/i);
-//     expect(linkElement).toBeInTheDocument();
-// });
+    cardTypes.forEach((currentType, index) => {
+        let generatedOption = screen.getByRole("option", {name: currentType})
+        expect(generatedOption).toBeInTheDocument();
+        expect(generatedOption).toHaveValue(currentType);
+    })
+
+});
 
 afterEach(() => {
     jest.clearAllMocks();

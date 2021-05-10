@@ -13,16 +13,15 @@ export class CardType extends Component {
 
     initCardTypes() {
         axios.get("http://localhost:8080/cards/types")
-            .then(res => console.log(res)).catch(err => console.error(err));
-            // .then(response => {this.setState({cardTypes: response.data})}).catch(err => console.error(err));
+            .then(response => {this.setState({cardTypes: response.data});});
     }
 
     render() {
         return (
-            <select name="type" onChange={this.props.handleChange} defaultValue={""} >
+            <select onChange={this.props.handleChange} defaultValue={""}>
                 <option disabled={true} />
                 {this.state.cardTypes.map(
-                    type => <option value={type}>{type}</option>
+                    type => <option accessKey={type + "TATA"} key={type+"TOTO"}>{type}</option>
                 )}
             </select>
         )
