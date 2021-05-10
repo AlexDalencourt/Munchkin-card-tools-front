@@ -11,3 +11,9 @@ script:
 branches:
   only:
     - master
+    - develop
+    
+os: linux
+arch:
+  - ppc64le
+dist: focal

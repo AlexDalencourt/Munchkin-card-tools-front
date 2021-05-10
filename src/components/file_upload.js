@@ -1,6 +1,32 @@
 import axios from 'axios';
 import React,{Component} from 'react';
-import "./file_upload.css"
+import "./styles/file_upload.css"
+
+export class CardType extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cardTypes: []
+        }
+        this.initCardTypes();
+    }
+
+    initCardTypes() {
+        axios.get("http://localhost:8080/cards/types")
+            .then(response => {this.setState({cardTypes: response.data});});
+    }
+
+    render() {
+        return (
+            <select onChange={this.props.handleChange} defaultValue={""}>
+                <option disabled={true} />
+                {this.state.cardTypes.map(
+                    type => <option key={type}>{type}</option>
+                )}
+            </select>
+        )
+    }
+}
 
 class FileUpload extends Component {
     constructor(props) {
@@ -21,7 +47,7 @@ class FileUpload extends Component {
             selectedFileUrl: URL.createObjectURL(event.target.files[0]),
             numberOfColumn: null,
             numberOfLine: null,
-            type: null,
+            type: undefined,
         });
     };
 
@@ -38,15 +64,12 @@ class FileUpload extends Component {
         const numberOfLines = this.state.numberOfLine;
         const boardType = this.state.type;
 
-        axios.post("http://localhost:8080/asset/board", formData, {params:{numberOfColumns,numberOfLines,boardType}});
+        axios.post(
+            "http://localhost:8080/asset/board",
+            formData,
+            {params:{numberOfColumns,numberOfLines,boardType}}
+        );
     };
-
-    onUpdateGrid = (newNumberOfColumn, newNumberOfLine) => {
-        this.setState({
-            numberOfColumn: newNumberOfColumn,
-            numberOfLine: newNumberOfLine,
-        })
-    }
 
     handleChange(event){
         this.setState({
@@ -64,11 +87,7 @@ class FileUpload extends Component {
                     Number of lines
                     <input type="number" value={this.state.numberOfLine} onChange={this.handleChange} name="numberOfLine"/>
                     Type
-                    <select value={this.state.type} onChange={this.handleChange} name="type">
-                        <option value="DUNGEON">DUNGEON</option>
-                        <option value="TREASURE">TREASURE</option>
-                        <option value="BACKGROUND">BACKGROUND</option>
-                    </select>
+                    <CardType handleChange={this.handleChange} />
                 </div>
             );
         } else {
