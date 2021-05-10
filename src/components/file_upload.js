@@ -28,7 +28,7 @@ export class CardType extends Component {
     }
 }
 
-class FileUpload extends Component {
+export class FileUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -105,7 +105,7 @@ class FileUpload extends Component {
             <div>
                 <h1>New board</h1>
                 <div>
-                    <input type="file" onChange={this.onFileChange}  accept="image/*"/>
+                    <input type="file" title={"boardUpload"} onChange={this.onFileChange}  accept="image/*"/>
                     <button onClick={this.onFileUpload}>Save</button>
                 </div>
                 {this.fileData()}
