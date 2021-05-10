@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { when } from 'jest-when';
+import { mount,shallow } from 'enzyme';
 import {FileUpload} from "../../components/file_upload";
-import axios from 'axios';
 
 beforeEach(() => {
 });
@@ -20,12 +19,19 @@ test("Should restrict input to image files", () => {
     expect(inputField).toHaveAttribute("accept", "image/*");
 })
 
-// test("Should load data structure on set new file on inputField", () => {
-//     render(<FileUpload />)
-//
-//     const inputField = screen.getByTitle("boardUpload");
-//     inputField.simulate
-// })
+test("Should load data structure on set new file on inputField", () => {
+    global.URL.createObjectURL = jest.fn();
+
+    const wrapper = shallow(<FileUpload />);
+    const inputField = wrapper.find("input[title='boardUpload']");
+    const fileContent = "fileContent";
+    const file = new Blob([fileContent], {type : 'image/*'});
+
+    inputField.simulate("change", {target: {files: [file]}});
+
+    expect(global.URL.createObjectURL).toHaveBeenCalled();
+    expect(wrapper.state('selectedFile')).toEqual(file);
+})
 
 test("Should contain upload button", () => {
     render(<FileUpload />);

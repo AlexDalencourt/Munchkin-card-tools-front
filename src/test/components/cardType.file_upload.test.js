@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import {CardType} from "../../components/file_upload";
+import { CardType } from "../../components/file_upload";
 import axios from 'axios';
 import { when } from 'jest-when';
 
