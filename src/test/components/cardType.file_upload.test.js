@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { shallow } from 'enzyme';
 import { CardType } from "../../components/file_upload";
 import axios from 'axios';
 import { when } from 'jest-when';
@@ -42,12 +43,14 @@ test('CardType must call server to load all types', () => {
 });
 
 test('CardType should display all types get from server', async () => {
-    await render(<CardType />);
+    const wrapper = await shallow(<CardType/>);
 
     cardTypes.forEach((currentType, index) => {
-        let generatedOption = screen.getByRole("option", {name: currentType})
-        expect(generatedOption).toBeInTheDocument();
-        expect(generatedOption).toHaveValue(currentType);
+        const generatedOption = wrapper.findWhere(node => node.key() === currentType);
+
+        expect(generatedOption.exists()).toBeTruthy();
+        expect(generatedOption.type()).toEqual("option");
+        expect(generatedOption.text()).toEqual(currentType);
     })
 
 });

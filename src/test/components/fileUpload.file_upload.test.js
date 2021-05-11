@@ -77,6 +77,20 @@ test("FileUpload should not display entire form if no image selected", () => {
     expect(wrapper.find("input[title='nbLines']").exists()).toBeFalsy();
 });
 
+test("FileUpload should display the image on screen when image selected", () => {
+    const selectedFile = new Blob(["Test"], {name: "testFile",type : 'image/*'});
+    const selectedFileUrl = "img:url:blob"
+
+    const wrapper = renderAndClickOnUpload((wrapper) => {
+        wrapper.setState({selectedFile: selectedFile});
+        wrapper.setState({selectedFileUrl: selectedFileUrl});
+    });
+
+    const imgComponent = wrapper.find("img[title='filePreview']");
+    expect(imgComponent.exists()).toBeTruthy();
+    expect(imgComponent.prop('src')).toEqual(selectedFileUrl);
+});
+
 afterEach(() => {
     jest.clearAllMocks();
 })
