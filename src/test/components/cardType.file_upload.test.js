@@ -52,7 +52,16 @@ test('CardType should display all types get from server', async () => {
         expect(generatedOption.type()).toEqual("option");
         expect(generatedOption.text()).toEqual(currentType);
     })
+});
 
+test('CardType should call function in parameter when value change', () => {
+    const triggerFunction = jest.fn();
+    const wrapper = shallow(<CardType handleChange={triggerFunction}/>);
+    expect(triggerFunction).not.toHaveBeenCalled();
+
+    wrapper.find("select").simulate("change");
+
+    expect(triggerFunction).toHaveBeenCalled();
 });
 
 afterEach(() => {
