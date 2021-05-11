@@ -24,7 +24,6 @@ test('CardType, empty option should be selected on load', () => {
     render(<CardType />)
 
     const emptyOption = screen.getByRole("option", {name: "", selected: true});
-    screen.debug(emptyOption);
     expect(emptyOption).toBeInTheDocument();
 });
 

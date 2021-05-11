@@ -34,8 +34,8 @@ export class FileUpload extends Component {
         this.state = {
             selectedFile: null,
             selectedFileUrl: null,
-            numberOfColumn: null,
-            numberOfLine: null,
+            numberOfColumns: null,
+            numberOfLines: null,
             type: null,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -45,23 +45,26 @@ export class FileUpload extends Component {
         this.setState({
             selectedFile: event.target.files[0],
             selectedFileUrl: URL.createObjectURL(event.target.files[0]),
-            numberOfColumn: null,
-            numberOfLine: null,
+            numberOfColumns: null,
+            numberOfLines: null,
             type: undefined,
         });
     };
 
     onFileUpload = () => {
-        const formData = new FormData();
         const selectedFile = this.state.selectedFile;
+        if(selectedFile == null) {
+            return alert("Please select a file");
+        }
+        const formData = new FormData();
         formData.append(
             "file",
             selectedFile,
             selectedFile.name
         );
 
-        const numberOfColumns = this.state.numberOfColumn;
-        const numberOfLines = this.state.numberOfLine;
+        const numberOfColumns = this.state.numberOfColumns;
+        const numberOfLines = this.state.numberOfLines;
         const boardType = this.state.type;
 
         axios.post(
@@ -81,11 +84,11 @@ export class FileUpload extends Component {
         if (this.state.selectedFile) {
             return (
                 <div>
-                    <img src={this.state.selectedFileUrl} alt="filePreview" className="filePreview" />
-                    Number of column
-                    <input type="number" value={this.state.numberOfColumn} onChange={this.handleChange} name={"numberOfColumn"}/>
+                    <img src={this.state.selectedFileUrl} alt="filePreview" className="filePreview" title={"filePreview"}/>
+                    Number of columns
+                    <input type="number" value={this.state.numberOfColumn} onChange={this.handleChange} name={"numberOfColumns"} title={"nbColumns"}/>
                     Number of lines
-                    <input type="number" value={this.state.numberOfLine} onChange={this.handleChange} name="numberOfLine"/>
+                    <input type="number" value={this.state.numberOfLine} onChange={this.handleChange} name="numberOfLines" title={"nbLines"}/>
                     Type
                     <CardType handleChange={this.handleChange} />
                 </div>
@@ -106,7 +109,7 @@ export class FileUpload extends Component {
                 <h1>New board</h1>
                 <div>
                     <input type="file" title={"boardUpload"} onChange={this.onFileChange}  accept="image/*"/>
-                    <button onClick={this.onFileUpload}>Save</button>
+                    <button onClick={this.onFileUpload} title={'goUpload'}>Save</button>
                 </div>
                 {this.fileData()}
             </div>
