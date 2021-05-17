@@ -18,7 +18,7 @@ export class CardType extends Component {
 
     render() {
         return (
-            <select onChange={this.props.handleChange} defaultValue={""}>
+            <select onChange={this.props.handleChange} defaultValue={""} name={"type"}>
                 <option disabled={true} />
                 {this.state.cardTypes.map(
                     type => <option key={type}>{type}</option>
