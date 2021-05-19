@@ -5,5 +5,5 @@ export const axiosInstance = axios.create({
 })
 
 export default {
-    getAllBoards: (needResize) => axiosInstance.get('/asset/board/full', {params: { }})
+    getAllBoards: (needResize: boolean) => axiosInstance.get('/asset/board/full', needResize ? {params: {resizeImages: needResize}} : null)
 }
