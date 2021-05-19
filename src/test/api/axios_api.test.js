@@ -1,5 +1,4 @@
 import axiosApi, { axiosInstance } from '../../api/axios_api';
-import axios from "axios";
 
 axiosInstance.get = jest.fn();
 
