@@ -20,7 +20,8 @@ dist: focal
 
 deploy:
   provider: pages:git
-  skip_cleanup: true
+  cleanup: false
+  strategy: git
   token: $GITHUB_TOKEN
   keep_history: true
   local_dir: coverage/lcov-report
