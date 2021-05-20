@@ -7,7 +7,6 @@ cache:
 script:
   - npm test -- --coverage
   - npm run build
-  - ls
 
 branches:
   only:
@@ -24,7 +23,7 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  local_dir: coverage/src
+  local_dir: coverage/lcov-report
   target_branch: doc
   on:
     branch: develop
