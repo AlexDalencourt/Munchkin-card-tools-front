@@ -25,4 +25,4 @@ deploy:
   keep_history: true
   local_dir: coverage/src
   on:
-    branch: develop
+    branch: doc
