@@ -17,14 +17,3 @@ os: linux
 arch:
   - ppc64le
 dist: focal
-
-deploy:
-  provider: pages
-  cleanup: false
-  strategy: git
-  token: $GITHUB_TOKEN
-  keep_history: true
-  local_dir: coverage/lcov-report
-  target_branch: doc
-  on:
-    branch: develop
