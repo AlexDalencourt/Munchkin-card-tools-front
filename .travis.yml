@@ -24,5 +24,6 @@ deploy:
   github_token: $GITHUB_TOKEN
   keep_history: true
   local_dir: coverage/src
+  target_branch: doc
   on:
-    branch: doc
+    branch: develop
