@@ -7,6 +7,7 @@ cache:
 script:
   - npm test -- --coverage
   - npm run build
+  - ls
 
 branches:
   only:
