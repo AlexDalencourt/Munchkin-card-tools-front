@@ -19,7 +19,7 @@ arch:
 dist: focal
 
 deploy:
-  provider: pages:git
+  provider: pages
   cleanup: false
   strategy: git
   token: $GITHUB_TOKEN
