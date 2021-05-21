@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { shallow } from 'enzyme';
-import { CardType } from "../../components/file_upload";
-import axios from 'axios';
+import { CardType } from "../file_upload";
 import { when } from 'jest-when';
+import axiosApi from "../../api/axios_api";
 
-jest.mock('axios');
 const cardTypes = ["TEST1", "TEST2", "TEST3"];
+
+axiosApi.getAllCardTypes = jest.fn();
 
 describe("CardType component: ", () => {
 
     beforeEach(() => {
-        when(axios.get)
-            .calledWith("http://localhost:8080/cards/types")
-            .mockReturnValue(Promise.resolve({data: cardTypes}));
-
+        when(axiosApi.getAllCardTypes)
+            .calledWith()
+            .mockReturnValue(Promise.resolve(cardTypes))
     });
 
     it('Should have one empty option', async () => {
@@ -40,8 +40,7 @@ describe("CardType component: ", () => {
     it('Must call server to load all types', () => {
         render(<CardType/>);
 
-        expect(axios.get).toHaveBeenCalledTimes(1);
-        expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/cards/types");
+        expect(axiosApi.getAllCardTypes).toHaveBeenCalledTimes(1);
     });
 
     it('Should display all types get from server', async () => {

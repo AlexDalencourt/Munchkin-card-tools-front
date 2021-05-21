@@ -11,7 +11,7 @@ export class Boards extends Component{
     }
 
     loadBoards(){
-        axios.getAllBoards(true).then(response => this.setState({loadedBoards: response.data}));
+        axios.getAllBoards(true).then(response => this.setState({loadedBoards: response}));
     }
 
     render() {

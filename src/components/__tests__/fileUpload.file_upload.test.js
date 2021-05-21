@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { shallow } from 'enzyme';
-import { FileUpload } from "../../components/file_upload";
-import axios from "axios";
+import { FileUpload } from "../file_upload";
+import axiosApi from "../../api/axios_api";
 
 global.URL.createObjectURL = jest.fn();
 global.alert = jest.fn();
-axios.post = jest.fn();
+axiosApi.uploadNewBord = jest.fn();
 
 describe("FileUpload component : ", () => {
     beforeEach(() => {
@@ -48,7 +48,7 @@ describe("FileUpload component : ", () => {
     it("Button upload should trigger post request only if file is set", () => {
         renderAndClickOnUpload();
 
-        expect(axios.post).not.toHaveBeenCalled();
+        expect(axiosApi.uploadNewBord).not.toHaveBeenCalled();
     })
 
     it("Button upload should trigger alert if file file not set", () => {
@@ -64,8 +64,8 @@ describe("FileUpload component : ", () => {
             wrapper.setState({selectedFile: selectedFile});
         });
 
-        expect(axios.post).toHaveBeenCalled();
-        expect(axios.post).toHaveBeenLastCalledWith("http://localhost:8080/asset/board", expect.any(FormData), expect.anything());
+        expect(axiosApi.uploadNewBord).toHaveBeenCalled();
+        expect(axiosApi.uploadNewBord).toHaveBeenCalledWith(expect.any(FormData), null, null, null);
     });
 
     it("FileUpload should not display entire form if no image selected", () => {
@@ -147,16 +147,13 @@ describe("FileUpload component : ", () => {
             });
         });
 
-        expect(axios.post).toHaveBeenCalled();
-        expect(axios.post)
+        expect(axiosApi.uploadNewBord).toHaveBeenCalled();
+        expect(axiosApi.uploadNewBord)
             .toHaveBeenLastCalledWith(
-                "http://localhost:8080/asset/board",
                 expect.anything(),
-                expect.objectContaining({
-                    params: {
-                        numberOfColumns, numberOfLines, boardType
-                    }
-                })
+                numberOfColumns,
+                numberOfLines,
+                boardType
             );
     });
 

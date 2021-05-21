@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosApi from '../api/axios_api';
 import React,{Component} from 'react';
 import "./styles/file_upload.css"
 
@@ -12,8 +12,7 @@ export class CardType extends Component {
     }
 
     initCardTypes() {
-        axios.get("http://localhost:8080/cards/types")
-            .then(response => {this.setState({cardTypes: response.data});});
+        axiosApi.getAllCardTypes().then((response) => this.setState({cardTypes: response}));
     }
 
     render() {
@@ -67,11 +66,7 @@ export class FileUpload extends Component {
         const numberOfLines = this.state.numberOfLines;
         const boardType = this.state.type;
 
-        axios.post(
-            "http://localhost:8080/asset/board",
-            formData,
-            {params:{numberOfColumns,numberOfLines,boardType}}
-        );
+        axiosApi.uploadNewBord(formData, numberOfColumns, numberOfLines, boardType);
     };
 
     handleChange(event){
