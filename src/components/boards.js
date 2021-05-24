@@ -1,4 +1,4 @@
-import axios from '../api/axios_api';
+import axiosApi from '../api/axios_api';
 import React,{Component} from 'react';
 
 export class Boards extends Component{
@@ -11,18 +11,17 @@ export class Boards extends Component{
     }
 
     loadBoards(){
-        axios.getAllBoards(true).then(response => this.setState({loadedBoards: response}));
+        axiosApi.getAllBoards(true).then(response => this.setState({loadedBoards: response}));
     }
 
     render() {
         return (
             <div>
-            <h1>Board list</h1>
+                <h1>Board list</h1>
                 <ul>
                     {this.state.loadedBoards.map(currBoard =>
                         <li key={currBoard.boardId}>
-                            <img src={"data:image/jpg;base64," + currBoard.image} alt={currBoard.bordId}/>
-                            <p>{currBoard.bordId}</p>
+                            <img src={"data:image/jpg;base64," + currBoard.image} alt={currBoard.boardId}/>
                         </li>
                     )}
                 </ul>

@@ -46,7 +46,7 @@ describe("CardType component: ", () => {
     it('Should display all types get from server', async () => {
         const wrapper = await shallow(<CardType/>);
 
-        cardTypes.forEach((currentType, index) => {
+        cardTypes.forEach((currentType) => {
             const generatedOption = wrapper.findWhere(node => node.key() === currentType);
 
             expect(generatedOption.exists()).toBeTruthy();
