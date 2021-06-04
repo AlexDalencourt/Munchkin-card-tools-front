@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Munchkin integrator",
+  "name": "Munchkin card integrator toolkit",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "Munchkin_game_cover.jpg",
+      "type": "image/jpg",
+      "sizes": "262x379"
     },
     {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "Munchkin_banier.jpg",
+      "type": "image/jpg",
+      "sizes": "2345x1331"
     }
   ],
   "start_url": ".",
