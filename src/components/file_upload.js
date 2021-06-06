@@ -1,5 +1,5 @@
 import axiosApi from '../api/axios_api';
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import "./styles/file_upload.css"
 
 export class CardType extends Component {
@@ -81,9 +81,9 @@ export class FileUpload extends Component {
                 <div>
                     <img src={this.state.selectedFileUrl} alt="filePreview" className="filePreview" title={"filePreview"}/>
                     Number of columns
-                    <input type="number" value={this.state.numberOfColumn} onChange={this.handleChange} name={"numberOfColumns"} title={"nbColumns"}/>
+                    <input type="number" value={this.state.numberOfColumns} onChange={this.handleChange} name={"numberOfColumns"} title={"nbColumns"}/>
                     Number of lines
-                    <input type="number" value={this.state.numberOfLine} onChange={this.handleChange} name="numberOfLines" title={"nbLines"}/>
+                    <input type="number" value={this.state.numberOfLines} onChange={this.handleChange} name="numberOfLines" title={"nbLines"}/>
                     Type
                     <CardType handleChange={this.handleChange} />
                 </div>
