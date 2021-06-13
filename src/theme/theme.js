@@ -1,25 +1,24 @@
-import {Theme} from "@material-ui/core";
 import {green, red} from "@material-ui/core/colors";
 
-const {createMuiTheme} = require("@material-ui/core");
-
-export const lightTheme = createMuiTheme({
+export const lightTheme = {
     palette: {
         primary: red,
     }
-});
+};
 
-export const darkTheme = createMuiTheme({
+export const darkTheme = {
     palette: {
         primary: green,
     }
-})
-
-export function getThemeByName(theme: string) : Theme {
-    return themeMap[theme];
 }
 
-const themeMap: {[key: string] : Theme } = {
+export function getThemeByState(darkThemeState) {
+    const themeName = darkThemeState === true ? 'darkTheme' : 'lightTheme';
+    return themeMap[themeName];
+}
+
+let themeMap: { [key: string]: any };
+themeMap = {
     lightTheme,
     darkTheme,
-}
+};
