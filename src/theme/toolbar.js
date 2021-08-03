@@ -23,7 +23,7 @@ export default class MunchkinToolbar extends React.Component {
                                 </IconButton>
                                 <Typography variant="h6" color="inherit">
                                     <img src={"Munchkin_banier.jpg"} alt={'Banier'} className={'banier'}/>
-                                    <Switch checked={currentTheme.themeState === true} onClick={event => currentTheme.setTheymeState(event.target.checked)}/>
+                                    <Switch checked={currentTheme.themeState === true} onClick={event => currentTheme.setThemeState(event.target.checked)}/>
                                 </Typography>
                             </Toolbar>
                         </AppBar>
