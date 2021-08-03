@@ -1,7 +1,4 @@
-menuButton {
-    /*marginRight: theme.spacing(2),*/
-}
 .banier {
-    height: 10%;
-    width: 10%;
+    height: 105px;
+    vertical-align: middle;
 }
