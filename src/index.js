@@ -1,30 +1,15 @@
 import React, {Fragment, useState} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-
-import clsx from "clsx";
-import {
-    createMuiTheme,
-    CssBaseline,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    ThemeProvider as UiThemeProvider
-} from "@material-ui/core";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import PublishIcon from '@material-ui/icons/Publish';
-import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {createMuiTheme, CssBaseline, ThemeProvider as UiThemeProvider} from "@material-ui/core";
 
 import {getThemeByState, useStyles} from './theme/theme';
 
 import FileUpload from "./components/file_upload";
 import Boards from "./components/boards";
 import './style/index.css';
-import MunchkinToolbar from "./theme/toolbar";
+import MunchkinHeaderToolbar, {MunchkinLateralToolbar} from "./theme/toolbars";
+import CardList from "./components/card_list";
 
 
 const { REACT_APP_ENV } = process.env;
@@ -66,50 +51,15 @@ function App(){
         <Fragment>
             <div className={classes.root}>
                 <CssBaseline />
-                <MunchkinToolbar handleDrawerOpen={handleDrawerOpen} navigationState={open}/>
-                <Drawer
-                    variant="permanent"
-                    className={clsx(classes.drawer, {
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
-                    })}
-                    classes={{
-                        paper: clsx({
-                            [classes.drawerOpen]: open,
-                            [classes.drawerClose]: !open,
-                        }),
-                    }}
-                >
-                    <div className={classes.toolbar}>
-                        <IconButton onClick={handleDrawerClose}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    </div>
-                    <Divider />
-                    <List>
-                        <Link to={"/"}>
-                            <ListItem button key={"AllBoards"}>
-                                <ListItemIcon><ViewComfyIcon/></ListItemIcon>
-                                <ListItemText primary={"All boards"}/>
-                            </ListItem>
-                        </Link>
-                    </List>
-                    <Divider />
-                    <List>
-                        <Link to={"/upload"}>
-                            <ListItem button key={"Upload"}>
-                                <ListItemIcon><PublishIcon/></ListItemIcon>
-                                <ListItemText primary={"Upload new board"} />
-                            </ListItem>
-                        </Link>
-                    </List>
-                </Drawer>
+                <MunchkinHeaderToolbar handleDrawerOpen={handleDrawerOpen} navigationState={open}/>
+                <MunchkinLateralToolbar handleDrawerClose={handleDrawerClose} navigationState={open}/>
                 <main className={classes.content}>
                     <div className={classes.toolbar}/>
                     <Route exact path={'/'} component={Boards}/>
                     <Route path={'/upload'}>
                         <FileUpload />
                     </Route>
+                    <Route path={'/cards'} component={CardList}/>
                 </main>
             </div>
         </Fragment>
